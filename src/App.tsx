@@ -1,103 +1,169 @@
-import {
-  ArrowUpRight,
-  BadgeCheck,
-  CalendarDays,
-  ChevronRight,
-  Gamepad2,
-  Ghost,
-  Instagram,
-  MapPin,
-  Menu,
-  Radio,
-  ShieldCheck,
-  Sparkles,
-  Ticket,
-  Users,
-  X,
-  Youtube,
-} from 'lucide-react';
+import { ArrowUpRight, ChevronDown, Ghost, Menu, ShieldCheck, Users, X } from 'lucide-react';
 import { useState } from 'react';
 
 const discordUrl = 'https://discord.gg/fbrptop';
-const eventImage = 'https://cdn.discordapp.com/attachments/1555160892654493816/1557525956443250788/image-10.jpg?backend=b2&ex=6acac195&is=6ac97015&hm=e73ea93a1232155b2a4bdb2d4ce3a92a3a7576405eb201d47425c5465b94fb72';
-const sceneImage = 'https://cdn.discordapp.com/attachments/1555160892654493816/1557525825408991242/image-13.jpg?backend=b2&ex=6acac176&is=6ac96ff6&hm=120f469254f85f0a86a0fa3e05e553c7e27e55a573f59d05a7e6e65f3efa30a3';
+const eventImage =
+  'https://cdn.discordapp.com/attachments/1555160892654493816/1557525956443250788/image-10.jpg?backend=b2&ex=6acac195&is=6ac97015&hm=e73ea93a1232155b2a4bdb2d4ce3a92a3a7576405eb201d47425c5465b94fb72';
+const sceneImage =
+  'https://cdn.discordapp.com/attachments/1555160892654493816/1557525825408991242/image-13.jpg?backend=b2&ex=6acac176&is=6ac96ff6&hm=120f469254f85f0a86a0fa3e05e553c7e27e55a573f59d05a7e6e65f3efa30a3';
 
-type Feature = {
-  icon: typeof Users;
-  eyebrow: string;
-  title: string;
-  copy: string;
-};
-
-const features: Feature[] = [
-  { icon: ShieldCheck, eyebrow: 'Built different', title: 'Experienced staff', copy: 'A trained, active team keeps every scene fair, welcoming, and moving.' },
-  { icon: Radio, eyebrow: 'Always something on', title: 'Daily sessions', copy: 'Jump in whenever you are ready. There is always another story waiting.' },
-  { icon: BadgeCheck, eyebrow: 'The details matter', title: 'Authentic departments', copy: 'Recognisable liveries, uniforms, vehicles, and a world that feels alive.' },
-  { icon: Gamepad2, eyebrow: 'Your story, your way', title: 'Immersive roleplays', copy: 'Build a character, find your people, and make every call count.' },
+type Pillar = { icon: typeof Users; title: string; body: string };
+const pillars: Pillar[] = [
+  { icon: ShieldCheck, title: 'Experienced staff', body: 'A trained moderation team keeps every session fair, focused, and fun for every rank.' },
+  { icon: Ghost, title: 'Halloween event live', body: 'FBRP: After Dark is running now. Costumes, chaos, and calls under the October moon.' },
+  { icon: Users, title: '9,000+ members', body: 'A fast-growing Discord full of players and departments ready to welcome the next recruit.' },
 ];
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
-
-  const closeMenu = () => setMenuOpen(false);
+  const close = () => setMenuOpen(false);
 
   return (
-    <div className="site-shell">
-      <header className="site-header">
-        <a href="#top" className="brand" aria-label="FBRP home" onClick={closeMenu}>
+    <div className="shell">
+
+      {/* ── Nav ── */}
+      <header className="nav">
+        <a href="#top" className="nav-logo" onClick={close}>
           <img src="/fbrp_logo.webp" alt="Fun Border Roleplay" />
-          <span>FBRP</span>
         </a>
-        <nav className={menuOpen ? 'main-nav is-open' : 'main-nav'} aria-label="Main navigation">
-          <a href="#about" onClick={closeMenu}>Why FBRP</a>
-          <a href="#event" onClick={closeMenu}>Halloween event</a>
-          <a href="#community" onClick={closeMenu}>Community</a>
-          <a className="nav-cta" href={discordUrl} target="_blank" rel="noreferrer" onClick={closeMenu}>Join Discord <ArrowUpRight size={15} /></a>
+        <nav className={menuOpen ? 'nav-links open' : 'nav-links'} aria-label="Main">
+          <a href="#about" onClick={close}>About</a>
+          <a href="#event" onClick={close}>Halloween</a>
+          <a href="#community" onClick={close}>Community</a>
+          <a href="#join" onClick={close}>How to Join</a>
+          <a className="nav-discord" href={discordUrl} target="_blank" rel="noreferrer" onClick={close}>
+            Discord <ArrowUpRight size={14} />
+          </a>
         </nav>
-        <button className="menu-toggle" aria-label={menuOpen ? 'Close menu' : 'Open menu'} onClick={() => setMenuOpen(!menuOpen)}>
+        <button className="hamburger" aria-label="Toggle menu" onClick={() => setMenuOpen(v => !v)}>
           {menuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
       </header>
 
-      <main id="top">
-        <section className="hero section-wrap">
-          <div className="hero-copy">
-            <div className="event-kicker"><span className="pulse-dot" /> Halloween event is live</div>
-            <h1>Make your next<br /><em>shift</em> unforgettable.</h1>
-            <p className="hero-lead">A serious roleplay experience for players who want more from ERLC. Step into a growing community built around immersive scenes, active staff, and stories worth showing up for.</p>
-            <div className="hero-actions">
-              <a className="button button-primary" href={discordUrl} target="_blank" rel="noreferrer">Enter the community <ArrowUpRight size={17} /></a>
-              <a className="text-link" href="#event">Explore the event <ChevronRight size={17} /></a>
+      {/* ── Hero ── */}
+      <section className="hero" id="top">
+        <img className="hero-bg" src={eventImage} alt="" />
+        <div className="hero-scrim" />
+        <div className="hero-body">
+          <div className="hero-kicker"><span className="dot" />Halloween event is live</div>
+          <img src="/fbrp_logo.webp" alt="Fun Border Roleplay" className="hero-logo" />
+          <h1>Fun Border<br />Roleplay</h1>
+          <p className="hero-sub">An immersive ERLC private server experience built for players who take roleplay seriously.</p>
+          <div className="hero-btns">
+            <a className="btn btn-white" href={discordUrl} target="_blank" rel="noreferrer">Join our Discord</a>
+            <a className="btn btn-ghost" href="#about">Learn more</a>
+          </div>
+        </div>
+        <a href="#about" className="scroll-hint" aria-label="Scroll down"><ChevronDown size={22} /></a>
+      </section>
+
+      {/* ── About ── */}
+      <section className="split" id="about">
+        <div className="split-img">
+          <img src={sceneImage} alt="FBRP night patrol scene" />
+        </div>
+        <div className="split-copy">
+          <span className="eyebrow">About FBRP</span>
+          <h2>A new establishment.<br />A real community.</h2>
+          <p>Fun Border Roleplay is a Liberty County ERLC private server built from the ground up for structured, immersive roleplay. From new recruits to veteran officers, everyone has a place here.</p>
+          <p>We offer active departments, authentic liveries and uniforms, daily sessions, and a staff team that keeps every scene running smoothly.</p>
+          <a className="inline-link" href={discordUrl} target="_blank" rel="noreferrer">Join the community <ArrowUpRight size={15} /></a>
+        </div>
+      </section>
+
+      {/* ── Pillars ── */}
+      <section className="pillars" id="highlights">
+        <div className="pillars-inner">
+          <span className="eyebrow center">What we offer</span>
+          <h2 className="center">Built for the experience.</h2>
+          <div className="pillar-grid">
+            {pillars.map(({ icon: Icon, title, body }) => (
+              <article className="pillar" key={title}>
+                <div className="pillar-icon"><Icon size={22} /></div>
+                <h3>{title}</h3>
+                <p>{body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Halloween Event ── */}
+      <section className="fullbleed" id="event">
+        <img className="fullbleed-bg" src={eventImage} alt="Halloween event scene" />
+        <div className="fullbleed-scrim" />
+        <div className="fullbleed-body">
+          <span className="eyebrow light">Seasonal special · October 2026</span>
+          <h2>FBRP: After Dark</h2>
+          <p>The county looks different after sunset. Join us for Halloween costumes, spooky calls, and the most chaotic session of the year. The gate is open — come find trouble.</p>
+          <a className="btn btn-orange" href={discordUrl} target="_blank" rel="noreferrer">Get event access <ArrowUpRight size={16} /></a>
+        </div>
+      </section>
+
+      {/* ── Community ── */}
+      <section className="split split-rev" id="community">
+        <div className="split-copy">
+          <span className="eyebrow">Our community</span>
+          <h2>9,000+ members<br />and growing.</h2>
+          <p>Step into one of the fastest-growing ERLC communities on Roblox. With daily sessions, open department applications, and a friendly player base, there is always something happening in Liberty County.</p>
+          <ul className="check-list">
+            <li>Active staff applications always open</li>
+            <li>Dedicated liveries and uniforms per department</li>
+            <li>Civilian, law enforcement, and fire/EMS roleplay</li>
+            <li>Daily hosted sessions and special events</li>
+          </ul>
+          <a className="btn btn-dark" href={discordUrl} target="_blank" rel="noreferrer">Join Discord <ArrowUpRight size={16} /></a>
+        </div>
+        <div className="split-img">
+          <img src={sceneImage} alt="FBRP community patrol" />
+        </div>
+      </section>
+
+      {/* ── How to Join ── */}
+      <section className="steps" id="join">
+        <span className="eyebrow center">Get started</span>
+        <h2 className="center">How to join FBRP</h2>
+        <ol className="step-list">
+          {[
+            ['Join the Discord', 'Head to our Discord server via the link below and accept the rules to gain access.'],
+            ['Read the regulations', 'Browse the server regulations and department guides in our resources channels.'],
+            ['Pick your path', 'Apply for a department role, or jump straight into civilian roleplay — no application needed.'],
+            ['Attend a session', 'Check the announcements channel for the next hosted session time and server code.'],
+            ['Make your mark', 'Show up, communicate, and contribute to scenes that everyone will remember.'],
+          ].map(([title, body], i) => (
+            <li key={i} className="step">
+              <span className="step-num">{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <h3>{title}</h3>
+                <p>{body}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+        <div className="steps-cta">
+          <a className="btn btn-dark" href={discordUrl} target="_blank" rel="noreferrer">Join our Discord <ArrowUpRight size={16} /></a>
+        </div>
+      </section>
+
+      {/* ── Footer ── */}
+      <footer className="footer">
+        <div className="footer-inner">
+          <a href="#top" className="footer-brand">
+            <img src="/fbrp_logo.webp" alt="" />
+            <div>
+              <strong>Fun Border Roleplay</strong>
+              <small>Liberty County, FL · ERLC Private Server</small>
             </div>
-            <div className="hero-proof"><div className="avatar-stack" aria-hidden="true"><span>F</span><span>R</span><span>P</span><span>+</span></div><p><strong>9,000+</strong> people already in the server</p></div>
-          </div>
-          <div className="hero-visual">
-            <div className="hero-image-frame"><img src={eventImage} alt="FBRP Halloween roleplay scene" /><div className="image-shade" /></div>
-            <div className="floating-card event-card"><div className="card-icon"><Ghost size={19} /></div><div><span>Now running</span><strong>FBRP: After Dark</strong></div><span className="live-tag">LIVE</span></div>
-            <div className="floating-card location-card"><MapPin size={16} /><span>Liberty County, FL</span></div>
-            <span className="scribble scribble-one">A new story<br />starts here</span>
-          </div>
-        </section>
-
-        <section className="ticker" aria-label="Community highlights"><div className="ticker-track"><span>FUN BORDER ROLEPLAY</span><i>✦</i><span>EST. 2024</span><i>✦</i><span>ERLC PRIVATE SERVER</span><i>✦</i><span>FUN BORDER ROLEPLAY</span><i>✦</i><span>EST. 2024</span><i>✦</i><span>ERLC PRIVATE SERVER</span></div></section>
-
-        <section className="intro section-wrap" id="about">
-          <div className="section-label"><span>01</span><span className="label-line" /><span>More than a server</span></div>
-          <div className="intro-grid"><h2>Good roleplay is<br /><em>all in the details.</em></h2><div><p className="large-copy">FBRP is a new establishment with an old-school community feel. We bring structure to every session without taking the fun out of playing.</p><p className="muted-copy">Whether you are answering calls, running a business, or just finding your place in Liberty County, there is room for your story here.</p><a className="inline-link" href={discordUrl} target="_blank" rel="noreferrer">Meet the community <ArrowUpRight size={15} /></a></div></div>
-          <div className="feature-grid">{features.map(({ icon: Icon, eyebrow, title, copy }) => <article className="feature" key={title}><div className="feature-icon"><Icon size={19} /></div><div><span>{eyebrow}</span><h3>{title}</h3><p>{copy}</p></div></article>)}</div>
-        </section>
-
-        <section className="event-section section-wrap" id="event">
-          <div className="event-panel"><img src={sceneImage} alt="FBRP night roleplay scene" /><div className="event-overlay" /><div className="event-content"><div className="section-label light"><span>02</span><span className="label-line" /><span>Seasonal special</span></div><div className="event-heading"><div><p className="orange-eyebrow"><Sparkles size={15} /> Limited-time community event</p><h2>Welcome to<br /><em>FBRP: After Dark.</em></h2></div><div className="event-date"><CalendarDays size={22} /><span>October<br /><strong>31</strong></span></div></div><p className="event-description">The county looks a little different after sunset. Join us for a night of costumes, calls, and chaotic Halloween roleplay. Bring your best fit and make a scene.</p><a className="button button-orange" href={discordUrl} target="_blank" rel="noreferrer">Get event access <Ticket size={17} /></a></div></div>
-        </section>
-
-        <section className="community-section section-wrap" id="community">
-          <div className="community-heading"><div className="section-label"><span>03</span><span className="label-line" /><span>Find your place</span></div><h2>Your next chapter<br /><em>starts in Discord.</em></h2><p>Come for the roleplay. Stay for the people. Applications are open for players and staff who want to help build what comes next.</p><a className="button button-dark" href={discordUrl} target="_blank" rel="noreferrer">Join 9,000+ members <Users size={17} /></a></div>
-          <div className="community-details"><div className="detail-row"><div className="detail-number">01</div><div><h3>Staff applications open</h3><p>Think you would be a great fit? We are always looking for calm, capable people to join the team.</p></div><ArrowUpRight size={19} /></div><div className="detail-row"><div className="detail-number">02</div><div><h3>Built for the long run</h3><p>Join a new server with the momentum, standards, and ambition to grow with you.</p></div><ArrowUpRight size={19} /></div><div className="detail-row"><div className="detail-number">03</div><div><h3>Pull up a seat</h3><p>Daily sessions, friendly faces, and a story waiting for your character.</p></div><ArrowUpRight size={19} /></div></div>
-        </section>
-      </main>
-
-      <footer className="site-footer section-wrap"><a href="#top" className="footer-brand"><img src="/fbrp_logo.webp" alt="" /><span><strong>Fun Border Roleplay</strong><small>Liberty County, FL</small></span></a><p>Made for the moments between the sirens.</p><div className="footer-links"><a href={discordUrl} target="_blank" rel="noreferrer">Discord <ArrowUpRight size={14} /></a><a href="#top" aria-label="Instagram"><Instagram size={16} /></a><a href="#top" aria-label="Youtube"><Youtube size={17} /></a></div></footer>
+          </a>
+          <nav className="footer-nav" aria-label="Footer">
+            <a href="#about">About</a>
+            <a href="#event">Halloween</a>
+            <a href="#community">Community</a>
+            <a href={discordUrl} target="_blank" rel="noreferrer">Discord</a>
+          </nav>
+        </div>
+        <p className="footer-legal">Fun Border Roleplay is an independent ERLC private server community. Not affiliated with Roblox or Police Roleplay Community.</p>
+      </footer>
     </div>
   );
 }
